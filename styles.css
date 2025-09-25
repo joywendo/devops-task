@@ -1,0 +1,164 @@
+/* Reset & base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+header {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  animation: fadeDown 1s ease-in-out;
+}
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+nav {
+  margin-top: 0.5rem;
+}
+nav a {
+  margin: 0 0.8rem;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+nav a:hover {
+  color: #ffd369;
+  transform: scale(1.1);
+}
+
+/* Hero section */
+.hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  min-height: 3rem; /* prevents layout shift while typing */
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.5s;
+}
+.hero p {
+  max-width: 600px;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 1.2s;
+}
+.hero button {
+  background: #ffd369;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.2s ease, background 0.3s ease;
+  animation: fadeUp 1s ease forwards 2s;
+}
+.hero button:hover {
+  transform: scale(1.05);
+  background: #ffbd4a;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: fadeIn 1.5s ease forwards 2.5s;
+}
+
+/* --- Animations --- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --- Responsive Styles --- */
+
+/* Tablets */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+  nav {
+    margin-top: 0.8rem;
+  }
+  .hero h2 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+  nav a {
+    display: inline-block;
+    margin: 0.4rem;
+    font-size: 0.9rem;
+  }
+  .hero h2 {
+    font-size: 1.6rem;
+  }
+  .hero p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  .hero button {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
