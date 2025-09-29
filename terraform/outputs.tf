@@ -1,6 +1,6 @@
 output "vm_static_ip" {
   description = "Static IP assigned on the Docker network"
-  value       = docker_container.vm.networks_advanced[0].ipv4_address
+  value       = tolist(docker_container.vm.networks_advanced)[0].ipv4_address
 }
 
 output "access_urls" {
