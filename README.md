@@ -21,17 +21,15 @@ You can easily clone this project to your local machine and try it out:
 git clone devops-task
 cd Devops
 
-## How to Run
-
 # macOS
-```bash
+
 open index.html
 
 # Linux
-```bash
+
 xdg-open index.html
 
 # Windows (PowerShell)
-```bash
+
 start index.html
 
