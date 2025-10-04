@@ -1,10 +1,4 @@
-# --- Monitoring temporary and data files ---
-data/
-prometheus_data/
-grafana_data/
 
-# --- Alertmanager sensitive config ---
-alertmanager.yml
 
 # --- Docker generated files ---
 *.log
