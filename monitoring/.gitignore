@@ -1,13 +1,16 @@
-# ignore environment files
-.env
+# --- Monitoring temporary and data files ---
+data/
+prometheus_data/
+grafana_data/
 
- Terraform files to ignore
-.terraform/
-.terraform.lock.hcl
-*.tfstate
-*.tfstate.*
-crash.log
-override.tf
-override.tf.json
-*_override.tf
-*_override.tf.json
+# --- Alertmanager sensitive config ---
+alertmanager.yml
+
+# --- Docker generated files ---
+*.log
+*.tmp
+
+# --- OS/system files ---
+.DS_Store
+Thumbs.db
+
