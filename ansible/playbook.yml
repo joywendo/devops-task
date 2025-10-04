@@ -1,0 +1,70 @@
+- hosts: servers
+  become: yes
+  tasks:
+
+    # 1. Ensure 'devops' group exists
+    - name: Ensure devops group exists
+      ansible.builtin.group:
+        name: devops
+        state: present
+
+    # 2. Copy sample config file
+    - name: Copy config.txt to /opt/ (skipped on macOS)
+      ansible.builtin.copy:
+        src: files/config.txt
+        dest: /opt/config.txt
+        owner: root
+        group: devops
+        mode: '0660'
+      when: ansible_facts['os_family'] != 'Darwin'
+
+    # 2b. For macOS: copy to home directory
+    - name: Copy config.txt to home directory on macOS
+      ansible.builtin.copy:
+        src: files/config.txt
+        dest: ~/config.txt
+        owner: "{{ ansible_user_id }}"
+        group: staff
+        mode: '0660'
+      when: ansible_facts['os_family'] == 'Darwin'
+
+    # 3. Install PostgreSQL (skip on macOS)
+    - name: Install PostgreSQL
+      ansible.builtin.package:
+        name: postgresql
+        state: latest
+      when: ansible_facts['os_family'] != 'Darwin'
+
+    # 4. Enable and start PostgreSQL service (skip on macOS)
+    - name: Enable and start PostgreSQL service
+      ansible.builtin.service:
+        name: postgresql
+        state: started
+        enabled: yes
+      when: ansible_facts['os_family'] != 'Darwin'
+
+    # 5. Install Nginx (skip on macOS)
+    - name: Install Nginx
+      ansible.builtin.package:
+        name: nginx
+        state: latest
+      when: ansible_facts['os_family'] != 'Darwin'
+
+    # 6. Enable and start Nginx service (skip on macOS)
+    - name: Enable and start Nginx service
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: yes
+      when: ansible_facts['os_family'] != 'Darwin'
+
+    # 7. Verify file copied correctly
+    - name: Check that config.txt exists
+      ansible.builtin.stat:
+        path: "{{ '/opt/config.txt' if ansible_facts['os_family'] != 'Darwin' else '~/config.txt' }}"
+      register: config_file
+
+    - name: Show result of config file check
+      debug:
+        msg: "Config file exists: {{ config_file.stat.exists }}"
+
