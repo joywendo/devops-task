@@ -1,0 +1,17 @@
+# Alertmanager handles what happens when alerts fire
+
+global:
+  resolve_timeout: 1m   # How long to wait before marking an alert as resolved
+
+# Main routing section: tells Alertmanager where to send all alerts
+route:
+  receiver: "console"   # Default receiver name
+
+# List of available receivers
+receivers:
+  - name: "console"
+    # Instead of sending emails, we use a dummy webhook
+    # This just simulates alert delivery locally — no external service
+    webhook_configs:
+      - url: "http://localhost:5001"   # Placeholder endpoint for testing/logging alerts
+
