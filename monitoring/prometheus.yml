@@ -1,12 +1,27 @@
-global:
-  scrape_interval: 5s
+# Main Prometheus configuration file
 
+global:
+  scrape_interval: 15s          # How often Prometheus collects data
+  evaluation_interval: 15s      # How often alert rules are checked
+
+# File that contains alerting rules
+rule_files:
+  - 'alert.rules.yml'
+
+# Defines where to send alerts (Alertmanager service)
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - 'alertmanager:9093'   # Connects to Alertmanager container
+
+# Define what services Prometheus should monitor
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: 'prometheus'         # Monitor Prometheus itself
     static_configs:
       - targets: ['prometheus:9090']
 
-  - job_name: 'docker'
+  - job_name: 'web_app'            # Monitor your web app
     static_configs:
-      - targets: ['host.docker.internal:9323']
+      - targets: ['web:5000']      # Replace 'web:5000' with your app's service name and port
 

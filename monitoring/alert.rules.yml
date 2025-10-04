@@ -1,0 +1,25 @@
+# Alert rules tell Prometheus what to watch for
+
+groups:
+  - name: example_alerts
+    rules:
+      # This alert fires when a monitored instance goes down
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} is down"
+          description: "The target {{ $labels.instance }} has been unreachable for over 1 minute."
+
+      # This alert fires when CPU usage stays above 80% for 2 minutes
+      - alert: HighCPUUsage
+        expr: rate(process_cpu_seconds_total[1m]) > 0.8
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage detected on {{ $labels.instance }}"
+          description: "CPU usage exceeded 80% for more than 2 minutes."
+
